@@ -1,0 +1,47 @@
+<div class="live-game-container">
+  <h2>Live Game Probabilities</h2>
+
+  <div *ngIf="loading" class="loading-indicator">
+    Loading game data...
+  </div>
+
+  <div *ngIf="!loading">
+    <div class="selection-area">
+      <div class="selection-group">
+        <label for="pitcher-select">Pitcher:</label>
+        <select id="pitcher-select" [(ngModel)]="selectedPitcherId">
+          <option *ngFor="let pitcher of pitchers" [ngValue]="pitcher.id">{{ pitcher.fullName }}</option>
+        </select>
+      </div>
+
+      <div class="selection-group">
+        <label for="batter-select">Batter:</label>
+        <select id="batter-select" [(ngModel)]="selectedBatterId">
+          <option *ngFor="let batter of batters" [ngValue]="batter.id">{{ batter.fullName }}</option>
+        </select>
+      </div>
+
+      <div class="selection-group">
+        <label for="count-select">Count:</label>
+        <select id="count-select" [(ngModel)]="selectedCount">
+          <option *ngFor="let count of counts" [ngValue]="count">{{ count }}</option>
+        </select>
+      </div>
+
+      <button (click)="predictProbabilities()" [disabled]="!selectedPitcherId || !selectedBatterId || !selectedCount">Get Probabilities</button>
+    </div>
+
+    <div *ngIf="predictedProbabilities" class="probabilities-display">
+      <h3>Predicted Probabilities:</h3>
+      <p>Ball: {{ predictedProbabilities.ball | number:'1.2-2' }}</p>
+      <p>Strike: {{ predictedProbabilities.strike | number:'1.2-2' }}</p>
+      <p>In-Play: {{ predictedProbabilities.in_play | number:'1.2-2' }}</p>
+    </div>
+
+    <div class="navigation-buttons">
+      <button (click)="navigateToModelPlayers()">View Player Models</button>
+      <button *ngIf="selectedPitcherId" (click)="navigateToGameProbability(selectedPitcherId)">View Pitcher Transition Matrix</button>
+      <button *ngIf="selectedBatterId" (click)="navigateToGameProbability(selectedBatterId)">View Batter Transition Matrix</button>
+    </div>
+  </div>
+</div>

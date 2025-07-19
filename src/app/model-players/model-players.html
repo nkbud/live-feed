@@ -1,0 +1,85 @@
+<div class="model-players-container">
+  <h2>Player Pitch Event History</h2>
+
+  <div *ngIf="loading" class="loading-indicator">
+    Loading player data...
+  </div>
+
+  <div *ngIf="!loading" class="teams-container">
+    <div *ngIf="awayPlayers.length === 0 && homePlayers.length === 0" class="no-data-message">
+      No pitch event data available for this game/season.
+    </div>
+
+    <!-- Away Team Column -->
+    <div class="team-column">
+      <h3>Away Team</h3>
+      <div *ngFor="let player of awayPlayers" class="player-section">
+        <div class="player-header" (click)="toggleCollapse(player)">
+          <h4>{{ player.fullName }} ({{ player.isPitcher ? 'Pitcher' : 'Batter' }})</h4>
+          <span class="collapse-icon">{{ player.collapsed ? '+' : '-' }}</span>
+        </div>
+        <div *ngIf="!player.collapsed" class="player-events">
+          <button (click)="navigateToGameProbability(player.id)">View Transition Matrix</button>
+
+          <h4>Raw Pitch Events</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Game PK</th>
+                <th>At Bat ID</th>
+                <th>Before Count</th>
+                <th>Pitch Event</th>
+                <th>Event Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let event of player.events">
+                <td>{{ event.gamePk }}</td>
+                <td>{{ event.atBatId }}</td>
+                <td>{{ event.beforeCount }}</td>
+                <td>{{ event.pitchEvent }}</td>
+                <td>{{ event.eventDescription }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Home Team Column -->
+    <div class="team-column">
+      <h3>Home Team</h3>
+      <div *ngFor="let player of homePlayers" class="player-section">
+        <div class="player-header" (click)="toggleCollapse(player)">
+          <h4>{{ player.fullName }} ({{ player.isPitcher ? 'Pitcher' : 'Batter' }})</h4>
+          <span class="collapse-icon">{{ player.collapsed ? '+' : '-' }}</span>
+        </div>
+        <div *ngIf="!player.collapsed" class="player-events">
+          <button (click)="navigateToGameProbability(player.id)">View Transition Matrix</button>
+
+          <h4>Raw Pitch Events</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Game PK</th>
+                <th>At Bat ID</th>
+                <th>Before Count</th>
+                <th>Pitch Event</th>
+                <th>Event Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let event of player.events">
+                <td>{{ event.gamePk }}</td>
+                <td>{{ event.atBatId }}</td>
+                <td>{{ event.beforeCount }}</td>
+                <td>{{ event.pitchEvent }}</td>
+                <td>{{ event.eventDescription }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

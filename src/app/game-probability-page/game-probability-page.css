@@ -1,0 +1,42 @@
+.transition-matrix-container {
+  padding: 20px;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+}
+
+.event-probabilities-table {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.data-table td {
+  min-width: 80px;
+}

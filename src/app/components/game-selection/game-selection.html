@@ -1,0 +1,21 @@
+<div class="game-selection-container">
+  <h2>Select a Game</h2>
+
+  <div *ngIf="loading" class="loading-indicator">
+    Loading games...
+  </div>
+
+  <ul *ngIf="!loading && games.length > 0" class="game-list">
+    <li *ngFor="let game of games" (click)="selectGame(game.gamePk)" class="game-item">
+      <div class="game-info">
+        <span class="game-time">{{ game.gameDate | date:'shortTime' }}</span>
+        <span class="teams">{{ game.teams.away.team.name }} vs {{ game.teams.home.team.name }}</span>
+      </div>
+      <span class="game-status">{{ game.status.detailedState }}</span>
+    </li>
+  </ul>
+
+  <div *ngIf="!loading && games.length === 0" class="no-games-message">
+    No games available today.
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="transition-matrix-container">
+  <h2>Transition Matrix for {{ playerFullName }} (Season {{ season }})</h2>
+
+  <div *ngIf="loading" class="loading-indicator">
+    Loading transition matrix...
+  </div>
+
+  <div *ngIf="!loading">
+    <div *ngIf="!transitionMatrix" class="no-data-message">
+      No transition matrix data available for this player and season.
+    </div>
+
+    <div *ngIf="transitionMatrix" class="event-probabilities-table">
+      <h3>Event Probabilities (Ball, Strike, In-Play)</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Count State</th>
+            <th>Ball Probability</th>
+            <th>Strike Probability</th>
+            <th>In-Play Probability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of transitionMatrix.eventCounts | keyvalue">
+            <td>{{ entry.key }}</td>
+            <td [style.background-color]="getProbabilityColor(getBallProbability(entry))">{{ getBallProbability(entry) | number:'1.2-2' }}</td>
+            <td [style.background-color]="getProbabilityColor(getStrikeProbability(entry))">{{ getStrikeProbability(entry) | number:'1.2-2' }}</td>
+            <td [style.background-color]="getProbabilityColor(getInPlayProbability(entry))">{{ getInPlayProbability(entry) | number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+  </div>
+</div>
